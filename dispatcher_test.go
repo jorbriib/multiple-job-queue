@@ -1,4 +1,4 @@
-package multiple_job_queue
+package multipleJobQueue
 
 import (
 	"testing"
@@ -17,7 +17,7 @@ func TestDispatcher_Dispatch_ReturnErrorIfQueuesWereNotInitialized(t *testing.T)
 	dispatcher := GetDispatcher()
 	err := dispatcher.Dispatch(job)
 	if err == nil {
-		t.Errorf("error is not nill when queues were not initialized")
+		t.Errorf("error is not nill when internalQueues were not initialized")
 	}
 }
 

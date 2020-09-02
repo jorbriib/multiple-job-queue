@@ -1,4 +1,4 @@
-package multiple_job_queue
+package multipleJobQueue
 
 import (
 	"testing"

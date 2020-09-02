@@ -1,12 +1,12 @@
-package multiple_job_queue
+package multipleJobQueue
 
 
-type Worker struct {
+type worker struct {
 	queue    chan Job
 	pool     chan chan Job
 }
 
-func (w *Worker) start() {
+func (w *worker) start() {
 	go func() {
 		for {
 			w.pool <- w.queue
@@ -14,14 +14,14 @@ func (w *Worker) start() {
 			select {
 			case job := <-w.queue:
 				job.Handle()
-				queues.numJobs--
+				internalQueues.numJobs--
 			}
 		}
 	}()
 }
 
-func newWorker(pool chan chan Job) *Worker {
-	return &Worker{
+func newWorker(pool chan chan Job) *worker {
+	return &worker{
 		queue:    make(chan Job),
 		pool:     pool,
 	}

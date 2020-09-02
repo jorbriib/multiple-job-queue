@@ -1,22 +1,22 @@
-package multiple_job_queue
+package multipleJobQueue
 
 
-type Queue struct {
+type queue struct {
 	alias   string
 	queue   chan Job
-	workers []*Worker
+	workers []*worker
 	pool    chan chan Job
 }
 
-func (q *Queue) enqueue(job Job) {
+func (q *queue) enqueue(job Job) {
 	q.queue <- job
 }
 
-func createQueue(alias string, numWorkers int) *Queue {
-	jobQueue := &Queue{
+func createQueue(alias string, numWorkers int) *queue {
+	jobQueue := &queue{
 		alias:   alias,
 		queue:   make(chan Job),
-		workers: make([]*Worker, numWorkers),
+		workers: make([]*worker, numWorkers),
 		pool:    make(chan chan Job, numWorkers),
 	}
 
