@@ -1,23 +1,23 @@
-package multiple_job_queue
+package multipleJobQueue
 
 import (
 	"fmt"
 	"reflect"
 )
 
-var queues *Queues
+var internalQueues *queues
 
-type Option func(*Queues)
+type option func(*queues)
 
-const DefaultQueue = "default"
+const defaultQueue = "default"
 
-type Queues struct {
-	queues  map[string]*Queue
+type queues struct {
+	queues  map[string]*queue
 	numJobs int
 }
 
-
-func (s *Queues) WaitUntilFinish() {
+// WaitUntilFinish waits until all jobs has been executed
+func (s *queues) WaitUntilFinish() {
 	for {
 		if s.numJobs == 0 {
 			break
@@ -38,7 +38,7 @@ func multipleSelect(chans []chan Job) (int, Job, bool) {
 	return ch, v.Interface().(Job), ok
 }
 
-func (s *Queues) dispatch() {
+func (s *queues) dispatch() {
 
 	var queues []chan Job
 	var queueKey []string
@@ -60,8 +60,7 @@ func (s *Queues) dispatch() {
 	}
 }
 
-
-func (s *Queues) getQueue(alias string) (*Queue, error) {
+func (s *queues) getQueue(alias string) (*queue, error) {
 	queue, ok := s.queues[alias]
 	if !ok {
 		return nil, fmt.Errorf("queue not found")
@@ -69,27 +68,29 @@ func (s *Queues) getQueue(alias string) (*Queue, error) {
 	return queue, nil
 }
 
-func AddQueue(alias string, numWorkers int) Option {
-	return func(s *Queues) {
+// AddQueue adds a new queue with a number of workers
+func AddQueue(alias string, numWorkers int) option {
+	return func(s *queues) {
 		queue := createQueue(alias, numWorkers)
 		s.queues[alias] = queue
 	}
 }
 
-func InitializeQueues(numWorkersInDefaultQueue int, options ...Option) *Queues {
-	queues = &Queues{
-		queues:  make(map[string]*Queue),
+// InitializeQueues creates a default queue with a number of workers and dispatch each queue
+func InitializeQueues(numWorkersInDefaultQueue int, options ...option) *queues {
+	internalQueues = &queues{
+		queues:  make(map[string]*queue),
 		numJobs: 0,
 	}
 
-	queue := createQueue(DefaultQueue, numWorkersInDefaultQueue)
-	queues.queues[DefaultQueue] = queue
+	queue := createQueue(defaultQueue, numWorkersInDefaultQueue)
+	internalQueues.queues[defaultQueue] = queue
 
 	for _, option := range options {
-		option(queues)
+		option(internalQueues)
 	}
 
-	go queues.dispatch()
+	go internalQueues.dispatch()
 
-	return queues
+	return internalQueues
 }
