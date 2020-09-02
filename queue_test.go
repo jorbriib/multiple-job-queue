@@ -1,4 +1,4 @@
-package multiple_job_queue
+package multipleJobQueue
 
 import (
 	"testing"
@@ -14,10 +14,10 @@ func TestQueue_Enqueue(t *testing.T) {
 
 	job := &TestJob{}
 
-	jobQueue := &Queue{
+	jobQueue := &queue{
 		alias:   "alias",
 		queue:   make(chan Job),
-		workers: make([]*Worker, 0),
+		workers: make([]*worker, 0),
 		pool:    make(chan chan Job, 0),
 	}
 
