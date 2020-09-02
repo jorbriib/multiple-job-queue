@@ -1,6 +1,5 @@
 package multipleJobQueue
 
-
 type queue struct {
 	alias   string
 	queue   chan Job

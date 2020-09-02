@@ -56,6 +56,6 @@ func TestDispatcher_Dispatch(t *testing.T) {
 		t.Errorf(err.Error())
 	}
 	if queues.numJobs != 1 {
-		t.Errorf( "numJobs property was not updated")
+		t.Errorf("numJobs property was not updated")
 	}
 }

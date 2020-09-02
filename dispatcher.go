@@ -4,6 +4,7 @@ import "fmt"
 
 type dispatcher struct {
 }
+
 // Dispatch dispatches a job to a queue, by default the job is dispatched to the default queue
 func (d *dispatcher) Dispatch(job Job, aliasQueue ...string) error {
 	if internalQueues == nil {

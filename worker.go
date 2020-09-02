@@ -1,9 +1,8 @@
 package multipleJobQueue
 
-
 type worker struct {
-	queue    chan Job
-	pool     chan chan Job
+	queue chan Job
+	pool  chan chan Job
 }
 
 func (w *worker) start() {
@@ -22,7 +21,7 @@ func (w *worker) start() {
 
 func newWorker(pool chan chan Job) *worker {
 	return &worker{
-		queue:    make(chan Job),
-		pool:     pool,
+		queue: make(chan Job),
+		pool:  pool,
 	}
 }

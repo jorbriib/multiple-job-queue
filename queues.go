@@ -60,7 +60,6 @@ func (s *queues) dispatch() {
 	}
 }
 
-
 func (s *queues) getQueue(alias string) (*queue, error) {
 	queue, ok := s.queues[alias]
 	if !ok {
