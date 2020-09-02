@@ -10,7 +10,7 @@ func (d *dispatcher) Dispatch(job Job, aliasQueue ...string) error {
 		return fmt.Errorf("internalQueues are not initialized")
 	}
 
-	selectedQueue := DefaultQueue
+	selectedQueue := defaultQueue
 	if len(aliasQueue) > 0 {
 		selectedQueue = aliasQueue[0]
 	}

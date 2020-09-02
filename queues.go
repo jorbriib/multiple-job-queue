@@ -9,7 +9,7 @@ var internalQueues *queues
 
 type option func(*queues)
 
-const DefaultQueue = "default"
+const defaultQueue = "default"
 
 type queues struct {
 	queues  map[string]*queue
@@ -84,8 +84,8 @@ func InitializeQueues(numWorkersInDefaultQueue int, options ...option) *queues {
 		numJobs: 0,
 	}
 
-	queue := createQueue(DefaultQueue, numWorkersInDefaultQueue)
-	internalQueues.queues[DefaultQueue] = queue
+	queue := createQueue(defaultQueue, numWorkersInDefaultQueue)
+	internalQueues.queues[defaultQueue] = queue
 
 	for _, option := range options {
 		option(internalQueues)

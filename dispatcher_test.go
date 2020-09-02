@@ -41,7 +41,7 @@ func TestDispatcher_Dispatch(t *testing.T) {
 	go func(t *testing.T) {
 		for {
 			select {
-			case _ = <-queues.queues[DefaultQueue].queue:
+			case _ = <-queues.queues[defaultQueue].queue:
 				return
 
 			default:
@@ -51,7 +51,7 @@ func TestDispatcher_Dispatch(t *testing.T) {
 	}(t)
 
 	dispatcher := GetDispatcher()
-	err := dispatcher.Dispatch(job, DefaultQueue)
+	err := dispatcher.Dispatch(job, defaultQueue)
 	if err != nil {
 		t.Errorf(err.Error())
 	}

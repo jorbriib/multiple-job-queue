@@ -10,10 +10,10 @@ func TestInitializeQueues_CreatesADefaultQueue(t *testing.T) {
 	if len(queues.queues) != 1 {
 		t.Errorf("intialize internalQueues doesn't create the default queue")
 	}
-	if len(queues.queues[DefaultQueue].workers) != 3{
+	if len(queues.queues[defaultQueue].workers) != 3{
 		t.Errorf("initialize queue doesn't start three workers")
 	}
-	if queues.queues[DefaultQueue].alias != DefaultQueue {
+	if queues.queues[defaultQueue].alias != defaultQueue {
 		t.Errorf("wrong alias")
 	}
 }
@@ -24,10 +24,10 @@ func TestAddQueue_CreatesANewQueue(t *testing.T) {
 	if len(queues.queues) != 2 {
 		t.Errorf("intialize internalQueues doesn't create the default queue")
 	}
-	if len(queues.queues[DefaultQueue].workers) != 3{
+	if len(queues.queues[defaultQueue].workers) != 3{
 		t.Errorf("initialize queue doesn't start three workers")
 	}
-	if queues.queues[DefaultQueue].alias != DefaultQueue {
+	if queues.queues[defaultQueue].alias != defaultQueue {
 		t.Errorf("wrong alias")
 	}
 	if len(queues.queues["high"].workers) != 5{
