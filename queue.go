@@ -1,4 +1,4 @@
-package multipleJobQueue
+package multiplejobqueue
 
 type queue struct {
 	alias   string
