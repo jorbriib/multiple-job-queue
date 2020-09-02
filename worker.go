@@ -1,4 +1,4 @@
-package multipleJobQueue
+package multiplejobqueue
 
 type worker struct {
 	queue chan Job
